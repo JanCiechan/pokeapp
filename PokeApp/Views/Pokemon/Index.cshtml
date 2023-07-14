@@ -4,7 +4,11 @@
 <div class=>
     <div class="card opacity-75 justify-content-center">
         <h1 class="card-header ">Witamy w Poke swiecie! Oto @Model.Name</h1>
-        <img class="card-body image-style" src=@Model.Url alt="" />
+        <div class="card-body center">
+            <button runat="server" class="arrows" onclick="changePokemon(0)">&larr;</button>
+            <img class="image-style" src="@Model.Url" alt="Pokemon image source outdated :/" />
+            <button class="arrows" onclick="changePokemon(1)"> &rarr;</button>
+        </div>
         <div class="rating-container card-footer ">
            
             
@@ -38,7 +42,7 @@
         checked.forEach((i)=>i.style.color="orange")
         unchecked.forEach((i)=>i.style.color="black")
     }
-
+     actualRating()
     function updateRating(Number) {
         $.ajax({
             url: '/Pokemon/UpdatePokemon',
@@ -46,13 +50,27 @@
              data: { argument: Number ,pokeid:@Model.PokemonId},
             success: function (result) {
                 location.reload();
+                actualRating()
             },
             error: function (xhr, status, error) {
                 alert("failure")
             }
         });
     }
-    actualRating()
+    function changePokemon(Next) {
+        $.ajax({
+            url: '/Pokemon/GetPokemon',
+            type: 'GET',
+             data: { next: Next ,pokeid:@Model.PokemonId},
+            success: function (result) {
+               location.reload();
+               actualRating()
+            },
+            error: function (xhr, status, error) {
+                alert("failure")
+            }
+        });
+    }
 
 
 </script>
