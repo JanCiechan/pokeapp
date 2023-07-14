@@ -1,0 +1,58 @@
+﻿@model PokeApp.Models.Pokemon
+<link href="~/css/PokeStyle.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class=>
+    <div class="card opacity-75 justify-content-center">
+        <h1 class="card-header ">Witamy w Poke swiecie! Oto @Model.Name</h1>
+        <img class="card-body image-style" src=@Model.Url alt="" />
+        <div class="rating-container card-footer ">
+           
+            
+                <div class=" image">
+                    <asp:Button runat="server" id="st1" onmouseover="hoverRating(1)" onmouseout="actualRating()" onclick="updateRating(1)" class="fa fa-star star"></asp:Button>
+                    <asp:Button runat="server" id="st2" onmouseover="hoverRating(2)" onmouseout="actualRating()" onclick="updateRating(2)" class="fa fa-star star"></asp:Button>
+                    <asp:Button runat="server" id="st3" onmouseover="hoverRating(3)" onmouseout="actualRating()" onclick="updateRating(3)" class="fa fa-star star"></asp:Button>
+                    <asp:Button runat="server" id="st4" onmouseover="hoverRating(4)" onmouseout="actualRating()" onclick="updateRating(4)" class="fa fa-star star"></asp:Button>
+                    <asp:Button runat="server" id="st5" onmouseover="hoverRating(5)" onmouseout="actualRating()" onclick="updateRating(5)" class="fa fa-star star"></asp:Button>
+                </div>
+            
+
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+    const stars = [document.getElementById("st1"),document.getElementById("st2"),document.getElementById("st3"),document.getElementById("st4"),document.getElementById("st5")];
+    function hoverRating(hoveredStar){
+        let checked =stars.slice(0,hoveredStar)
+        let unchecked =stars.slice(hoveredStar,6)
+        checked.forEach((i)=>i.style.color="orange")
+        unchecked.forEach((i)=>i.style.color="black")
+    }
+
+    function actualRating(){
+        let checked =stars.slice(0,@Model.Rating)
+        let unchecked =stars.slice(@Model.Rating,6)
+        checked.forEach((i)=>i.style.color="orange")
+        unchecked.forEach((i)=>i.style.color="black")
+    }
+
+    function updateRating(Number) {
+        $.ajax({
+            url: '/Pokemon/UpdatePokemon',
+            type: 'PUT',
+             data: { argument: Number ,pokeid:@Model.PokemonId},
+            success: function (result) {
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+                alert("failure")
+            }
+        });
+    }
+    actualRating()
+
+
+</script>
