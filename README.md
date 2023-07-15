@@ -1,5 +1,6 @@
 # pokeapp
 app for rating pokemons in asp net as well as basic pokemon guessing game :)
+Basic css animations included!
 Front page where you get a random pokemon to assign your rating to
 ![image](https://github.com/JanCiechan/pokeapp/assets/64535774/95c3381b-e477-4f94-84bd-3ba524ee2037)
 Gallery of met pokemons
