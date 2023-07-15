@@ -1,0 +1,35 @@
+﻿@model List<Pokemon>
+<link href="~/css/PokeStyle.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<h4 class="text-white">Oto galeria spotkanych przez Ciebie pokemonów!</h4>
+
+@for (int i = 0; i < Model.Count() - 1; i += 3)
+{
+    <div class="row top30">
+        @for (int j = 0; j < 3; j++)
+        {
+            @if (j == 0 || (Model.ElementAtOrDefault(i + j) != null))
+            {
+                <div class="col-md-4 mt-3">
+                    <div class="card">
+                        <div class="card-header">@Model.ElementAtOrDefault(i + j).Name</div>
+                        <div class="card-body center justify-content-around">
+                            <img class="gallery-img" src="@Model.ElementAtOrDefault(i + j).Url" alt="Picture Unavailable" />
+                        </div>
+                        <div class="card-footer rating-container">
+
+
+                            <span  class="fa fa-star star" style="@(@Model.ElementAtOrDefault(i + j).Rating>=1 ? "color:orange" : "color:black")"></span>
+                            <span  class="fa fa-star star" style="@(@Model.ElementAtOrDefault(i + j).Rating>=2 ? "color:orange" : "color:black")"></span>
+                            <span  class="fa fa-star star" style="@(@Model.ElementAtOrDefault(i + j).Rating>=3 ? "color:orange" : "color:black")"></span>
+                            <span  class="fa fa-star star" style="@(@Model.ElementAtOrDefault(i + j).Rating>=4 ? "color:orange" : "color:black")"></span>
+                            <span  class="fa fa-star star" style="@(@Model.ElementAtOrDefault(i + j).Rating>=5 ? "color:orange" : "color:black")"></span>
+
+
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+}

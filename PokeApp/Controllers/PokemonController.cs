@@ -19,6 +19,11 @@ namespace PokeApp.Controllers
            
             return View(pokemon);
         }
+
+        public IActionResult Gallery()
+        {
+            return View(pokemons);
+        }
         [HttpPut] 
         public ActionResult UpdatePokemon(string argument,string pokeid)
         {
