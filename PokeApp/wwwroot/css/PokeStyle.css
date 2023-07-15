@@ -11,6 +11,18 @@
     .image-style:hover {
         animation: shake 2s infinite;
     }
+.noHover {
+    pointer-events: none;
+}
+.guess-img {
+    filter: brightness(0);
+}
+.guess-input{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+}
 .center{
     display:flex;
     flex-direction:row;
@@ -45,6 +57,23 @@
     width:100%;
 }
 
+.correct-choice {
+    animation: unravel 2s;
+    animation-timing-function: linear;
+}
+@keyframes unravel {
+    from {
+        filter: brightness(0);
+    }
+    to {
+        transform: rotateY(360deg);
+        filter: brightness(1);
+    }
+}
+
+
+
+
 @keyframes pulse {
     0% {
         transform: scale(0.95);
@@ -76,5 +105,27 @@
 
     40%, 60% {
         transform: translate3d(4px, 4px, 4px)
+    }
+}
+
+.wrong-choice {
+    animation: wrong 1s;
+}
+
+@keyframes wrong {
+    10%, 90% {
+        transform: translateX(-40px);
+    }
+
+    20%, 80% {
+        transform: translateX(40px)
+    }
+
+    30%, 50%, 70% {
+        transform: translateX(-40px)
+    }
+
+    40%, 60% {
+        transform: translateX(40px)
     }
 }

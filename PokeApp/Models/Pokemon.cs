@@ -18,7 +18,6 @@
             Url = url;
             Rating = rate;
             PokemonId = ID;
-    
 
         }
 

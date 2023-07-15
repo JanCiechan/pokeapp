@@ -1,0 +1,84 @@
+﻿@model Pokemon
+<link href="~/css/PokeStyle.css" rel="stylesheet" type="text/css" />
+<h4 class="text-white">Whos that pokemon?</h4>
+<div class="card">
+    <div class="card-header align-content-center mt-22">
+        <h1 class="text-center fw-bolder " id=hiddenName>
+            @String.Concat(Enumerable.Repeat("_ ", Model.Name.Length))
+        </h1>
+
+    </div>
+    <div class="card-body center justify-content-center">
+        <img id="pokemon" src="@Model.Url" id="MysteriousPokemon" class="noHover image-style guess-img" />
+    </div>
+    <div class="card-footer guess-input">
+        <div class="d-flex flex-row w-75 justify-content-center">
+            <input class="form-control w-50" type="text" placeholder="pokemon name" id="name" />
+            <button class="btn btn-success" onclick="guess()">Make a guess</button>
+        </div>
+        <div class="d-flex flex-row align-items-center w-50 justify-content-around ">
+            <span class=" border-0 justify-self-center mt-3" id="tries">You have tried 0 times</span>
+            <button class="btn btn-secondary justify-self-center mt-3" onclick="tip()">Need a tip?</button>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    var numberOfTries=0;
+    const name= document.getElementById("name")
+    var unnknownLetters=Array.from(new Set("@Model.Name".split('')));
+    var knownLetters=Array();
+    var letterIndexes=Array.from(Array(unnknownLetters.length).keys())
+    function LoadedProperly(){
+        if(!document.getElementById("MysteriousPokemon").complete){
+            location.reload();
+
+        }
+
+    }
+    function guess(){
+
+        if(name.value=="@Model.Name"){
+            //alert("Congratulations!!!")
+            document.getElementById("pokemon").classList.add("correct-choice")
+            document.getElementById("pokemon").classList.remove("guess-img")
+            document.getElementById("hiddenName").innerHTML="@Model.Name"
+        }
+        else{
+            document.getElementById("pokemon").classList.add("wrong-choice")
+            setTimeout(function(){document.getElementById("pokemon").classList.remove("wrong-choice")},1000)
+
+            numberOfTries+=1;
+            document.getElementById("tries").innerHTML="You have tried "+ numberOfTries + " times"
+        }
+    }
+
+    function tip(){
+        let randomLetter = unnknownLetters[Math.floor(Math.random() * unnknownLetters.length)];
+        const index = unnknownLetters.indexOf(randomLetter);
+        if (index > -1) { // only splice array when item is found
+          unnknownLetters.splice(index, 1); // 2nd parameter means remove one item only
+        }
+     
+        knownLetters.push(randomLetter);
+        var resulting_string="";
+      
+        for(var i =0;i<"@Model.Name".length;i++){
+            
+            if(knownLetters.includes("@Model.Name".charAt(i))){
+                resulting_string+="@Model.Name ".charAt(i);
+            }
+            else{
+                resulting_string+="_ "
+            }
+        }
+        if(unnknownLetters.length==0){
+            alert("Tym razem sie nie udalo, pokemon to " + "@Model.Name" );
+            location.reload()
+        }
+        document.getElementById("hiddenName").innerHTML=resulting_string;
+      
+    }
+
+</script>

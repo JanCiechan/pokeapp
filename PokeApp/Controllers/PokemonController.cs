@@ -24,6 +24,15 @@ namespace PokeApp.Controllers
         {
             return View(pokemons);
         }
+
+        public IActionResult Pokedle()
+        {
+
+            Random random = new Random();
+            int randomIndex = random.Next(pokemons.Count);
+            return View(pokemons[randomIndex]);
+
+        }
         [HttpPut] 
         public ActionResult UpdatePokemon(string argument,string pokeid)
         {
@@ -72,10 +81,6 @@ namespace PokeApp.Controllers
                     randomElement = pokemons[index - 1].PokemonId;
                 }
             }
-
-
-
-
 
             currentPokemon = randomElement;
             return RedirectToAction("Index");
